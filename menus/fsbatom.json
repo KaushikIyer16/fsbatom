@@ -1,0 +1,23 @@
+{
+  "context-menu": {
+    "atom-text-editor": [
+
+    ]
+  },
+  "menu": [
+    {
+      "label": "Packages",
+      "submenu": [
+        {
+          "label": "File System Builder",
+          "submenu": [
+            {
+              "label": "Create Files",
+              "command": "fsbatom:toggleModal"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
