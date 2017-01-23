@@ -1,18 +1,19 @@
 {
   "name": "fsbatom",
   "main": "./lib/fsbatom",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A short description of your package",
-  "keywords": [
-  ],
+  "keywords": [],
   "activationCommands": {
-    "atom-workspace": ["fsbatom:toggleModal","fsbatom:knsi"]
+    "atom-workspace": [
+      "fsbatom:toggleModal",
+      "fsbatom:knsi"
+    ]
   },
   "repository": "https://github.com/KaushikIyer16/fsbatom",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
