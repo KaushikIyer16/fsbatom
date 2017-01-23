@@ -8,7 +8,7 @@
   "activationCommands": {
     "atom-workspace": ["fsbatom:toggleModal","fsbatom:knsi"]
   },
-  "repository": "https://github.com/atom/fsbatom",
+  "repository": "https://github.com/KaushikIyer16/fsbatom",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
