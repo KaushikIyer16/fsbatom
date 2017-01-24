@@ -2,7 +2,7 @@
   "name": "fsbatom",
   "main": "./lib/fsbatom",
   "version": "0.2.0",
-  "description": "A short description of your package",
+  "description": "A simple but elegant way to create a huge number of files or directories or any combination of both without much hassle",
   "keywords": [],
   "activationCommands": {
     "atom-workspace": [
