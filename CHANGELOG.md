@@ -1,8 +1,9 @@
-## 0.1.0 - First Release
+## 0.3.0 - First Release
 * Every feature added
  - modal has been added to take the user input
  - documentElement listener was added
- - added fileSystemResolver.js 
+ - enter listener was added
+ - added fileSystemResolver.js
 * Every bug fixed
  - modal was giving problems with the click so changed the event to focus
  - onChangeListener was fixed and the basic view of the package is complete
