@@ -104,18 +104,15 @@ export class FileSystemResolver{
   }
 
   RollUpDirectory(currentDirectory){
-    let reg = /\/[a-zA-Z0-9]*?/g;
-
-    let match = reg.exec(currentDirectory);
-    return currentDirectory.substr(0,currentDirectory.indexOf(match[0])+1);
-
+    let reg = /\/[a-zA-Z0-9]*\/?/g;
+    currentDirectory = currentDirectory.substr(0,currentDirectory.length-1);
+    return currentDirectory.substr(0,currentDirectory.lastIndexOf('/')+1);
 
   }
   /*This is the function that will be called to initiate the parsing of the input string to
   the directory structure*/
   main(parseString){
     let argv = parseString.split(' ');
-    print(argv);
 
     let currentDirectory = "",
         currentFormat    = "";
@@ -135,9 +132,10 @@ export class FileSystemResolver{
           else{
             currentFormat += this.getExtensionFromArgument(argv[i]);
           }
-          print("the current format is "+currentFormat);
+
         }else if(this.isDrillDown(argv[i])){
           // in tree branch over here
+          currentFormat = "";
           continue;
         }else if(this.isRollUp(argv[i])){
           // in the tree now we have to go one level up
