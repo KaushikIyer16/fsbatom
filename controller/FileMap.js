@@ -16,8 +16,7 @@ export let fileMap = {
         "-cu" : ".cu"   ,
         "-jp" : ".jsp"  ,
         "-sq" : ".sql"  ,
-        "-pd" : ".pdf"  ,
         "-sc" : ".scss" ,
         "-t"  : ".txt"
-        
+
 };
