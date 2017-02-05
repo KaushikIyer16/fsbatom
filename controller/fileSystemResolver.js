@@ -1,6 +1,9 @@
 'use babel';
 
 import {fileMap}                    from '../controller/FileMap';
+import {fileSpan,directorySpan,li,
+        clearList,addChildToParent,
+        computeMargin}              from './DomElements';
 
 export function print(printString) {
   console.log(printString);
@@ -9,12 +12,14 @@ export function print(printString) {
 export class FileSystemResolver{
   parseString:null;
 
-  constructor(parseString){
-    this.parseString = parseString;
+  constructor(){
+
     // print(this.parseString+" is the directory to be parsed");
     // this.main(parseString);
   }
-
+  setParseString(parseString){
+    this.parseString = parseString;
+  }
   containsMinus(argument){
     return (
       argument[0] === '-' ?
@@ -111,8 +116,8 @@ export class FileSystemResolver{
   }
   /*This is the function that will be called to initiate the parsing of the input string to
   the directory structure*/
-  main(parseString){
-    let argv = parseString.split(' ');
+  main(){
+    let argv = this.parseString.split(' ');
 
     let currentDirectory = "",
         currentFormat    = "";
@@ -159,8 +164,11 @@ export class FileSystemResolver{
 
   }
 
-  mainTemplate(parseString){
-    let argv = parseString.split(' ');
+  mainTemplate(){
+    let argv = this.parseString.trim().split(' ');
+    let baseMargin = 'calc(20% + ';
+    let addedMargin = 0;
+    clearList('.list-group');
 
     let currentDirectory = "",
         currentFormat    = "";
@@ -184,17 +192,22 @@ export class FileSystemResolver{
         }else if(this.isDrillDown(argv[i])){
           // in tree branch over here
           currentFormat = "";
+          addedMargin += 10;
           continue;
         }else if(this.isRollUp(argv[i])){
           // in the tree now we have to go one level up
           currentFormat = "";
           currentDirectory = this.RollUpDirectory(currentDirectory);
+          addedMargin -= 10;
           continue;
         }else if(currentFormat === "" && !this.containsFormat(argv[i]) ){
           currentDirectory += argv[i]+"/";
+
+          addChildToParent('.list-group',li(true,currentDirectory,computeMargin(baseMargin,addedMargin)));
           print("--"+currentDirectory+"\n");
         }else{
           // here i need to add nodes to the tree and create a complete tree
+          addChildToParent('.list-group',li(false,argv[i]+currentFormat,computeMargin(baseMargin,addedMargin)));
           print("---"+currentDirectory+argv[i]+currentFormat+"---\n");
 
         }
