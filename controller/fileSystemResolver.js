@@ -12,7 +12,7 @@ export class FileSystemResolver{
   constructor(parseString){
     this.parseString = parseString;
     // print(this.parseString+" is the directory to be parsed");
-    this.main(parseString);
+    // this.main(parseString);
   }
 
   containsMinus(argument){
@@ -157,6 +157,53 @@ export class FileSystemResolver{
       // here i will add a notification to say that an empty structure is given
     }
 
+  }
+
+  mainTemplate(parseString){
+    let argv = parseString.split(' ');
+
+    let currentDirectory = "",
+        currentFormat    = "";
+
+    if (argv.length > 0) {
+
+      for (let i = 0; i < argv.length; i++) {
+
+        if (this.containsMinus(argv[i])) {
+          if(this.isDirectory(argv[i])){
+            currentFormat = "";
+          }
+          // now i will have to check for multiple extensions
+          else if(this.isMultipleExtension(argv[i])){
+            currentFormat += this.getMultipleExtensionFromArgument(argv[i]);
+          }
+          else{
+            currentFormat += this.getExtensionFromArgument(argv[i]);
+          }
+
+        }else if(this.isDrillDown(argv[i])){
+          // in tree branch over here
+          currentFormat = "";
+          continue;
+        }else if(this.isRollUp(argv[i])){
+          // in the tree now we have to go one level up
+          currentFormat = "";
+          currentDirectory = this.RollUpDirectory(currentDirectory);
+          continue;
+        }else if(currentFormat === "" && !this.containsFormat(argv[i]) ){
+          currentDirectory += argv[i]+"/";
+          print("--"+currentDirectory+"\n");
+        }else{
+          // here i need to add nodes to the tree and create a complete tree
+          print("---"+currentDirectory+argv[i]+currentFormat+"---\n");
+
+        }
+
+      }
+    } else {
+      print("\nEMPTY FILE STRUCTURE GIVEN TO FSB\n");
+      // here i will add a notification to say that an empty structure is given
+    }
   }
 
 }
