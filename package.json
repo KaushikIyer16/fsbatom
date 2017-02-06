@@ -12,8 +12,7 @@
   ],
   "activationCommands": {
     "atom-workspace": [
-      "fsbatom:toggleModal",
-      "fsbatom:knsi"
+      "fsbatom:toggleModal"
     ]
   },
   "repository": "https://github.com/KaushikIyer16/fsbatom",
