@@ -3,10 +3,10 @@ export let fileMap = {
 
         "-p"  : ".php"  ,
         "-ht" : ".html" ,
-        "-j"  : ".java" ,
+        "-ja"  : ".java" ,
         "-c"  : ".c"    ,
         "-cp" : ".cpp"  ,
-        "-js" : ".js"   ,
+        "-j" : ".js"   ,
         "-cs" : ".css"  ,
         "-s"  : ".scala",
         "-r"  : ".r"    ,

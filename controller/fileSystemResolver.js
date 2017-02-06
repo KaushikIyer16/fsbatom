@@ -193,6 +193,8 @@ export class FileSystemResolver{
           // in tree branch over here
           currentFormat = "";
           addedMargin += 10;
+          currentDirectory += argv[i]+"/";
+          // addChildToParent('.list-group',li(true,currentDirectory,computeMargin(baseMargin,addedMargin)));
           continue;
         }else if(this.isRollUp(argv[i])){
           // in the tree now we have to go one level up
@@ -201,14 +203,14 @@ export class FileSystemResolver{
           addedMargin -= 10;
           continue;
         }else if(currentFormat === "" && !this.containsFormat(argv[i]) ){
-          currentDirectory += argv[i]+"/";
 
-          addChildToParent('.list-group',li(true,currentDirectory,computeMargin(baseMargin,addedMargin)));
-          print("--"+currentDirectory+"\n");
+
+          addChildToParent('.list-group',li(true,argv[i],computeMargin(baseMargin,addedMargin)));
+          // print("--"+currentDirectory+"\n");
         }else{
           // here i need to add nodes to the tree and create a complete tree
           addChildToParent('.list-group',li(false,argv[i]+currentFormat,computeMargin(baseMargin,addedMargin)));
-          print("---"+currentDirectory+argv[i]+currentFormat+"---\n");
+          // print("---"+currentDirectory+argv[i]+currentFormat+"---\n");
 
         }
 
