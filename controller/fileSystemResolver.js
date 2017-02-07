@@ -122,7 +122,7 @@ export class FileSystemResolver{
     let currentDirectory = "",
         currentFormat    = "";
 
-    if (argv.length > 0) {
+    if (argv.length > 0 && argv[0] !== '') {
 
       for (let i = 0; i < argv.length; i++) {
 
@@ -157,23 +157,25 @@ export class FileSystemResolver{
         }
 
       }
+      atom.notifications.addSuccess("\nFolder Successfully Created\n");
     } else {
-      print("\nEMPTY FILE STRUCTURE GIVEN TO FSB\n");
+      // print("\nEMPTY FILE STRUCTURE GIVEN TO FSB\n");
       // here i will add a notification to say that an empty structure is given
+      atom.notifications.addWarning("\nEMPTY FILE STRUCTURE GIVEN TO FSB\n");
     }
 
   }
 
   mainTemplate(){
     let argv = this.parseString.trim().split(' ');
-    let baseMargin = 'calc(20% + ';
+    let baseMargin = 'calc(2% + ';
     let addedMargin = 0;
     clearList('.list-group');
 
     let currentDirectory = "",
         currentFormat    = "";
 
-    if (argv.length > 0) {
+    if (argv.length > 0 && argv[0] !== '') {
 
       for (let i = 0; i < argv.length; i++) {
 
@@ -215,9 +217,13 @@ export class FileSystemResolver{
         }
 
       }
+      addChildToParent('.list-group',li(false,'...',computeMargin(baseMargin,0)));
+
     } else {
-      print("\nEMPTY FILE STRUCTURE GIVEN TO FSB\n");
+      // print("\nEMPTY FILE STRUCTURE GIVEN TO FSB\n");
       // here i will add a notification to say that an empty structure is given
+      clearList('.list-group');
+      addChildToParent('.list-group',li(false,'...',computeMargin(baseMargin,0)));
     }
   }
 
