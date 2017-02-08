@@ -1,10 +1,11 @@
-## 0.4.0 - First Release
+## 0.6.3 - First Release
 * Every feature added
  - modal has been added to take the user input
  - documentElement listener was added
  - enter listener was added
  - added FileSystemResolver.js
  - ported code to FileSystemResolver.js
+ - added live preview of the file system.
 
 * Every bug fixed
  - modal was giving problems with the click so changed the event to focus
