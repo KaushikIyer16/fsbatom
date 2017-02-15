@@ -204,7 +204,7 @@ export class FileSystemResolver{
           currentFormat = "";
           addedMargin += 10;
           currentDirectory += argv[i]+"/";
-          addChildToParent('.list-group',li(true,currentDirectory,computeMargin(baseMargin,addedMargin)));
+          // ~~ addChildToParent('.list-group',li(true,currentDirectory,computeMargin(baseMargin,addedMargin)));
           continue;
         }else if(this.isRollUp(argv[i])){
           // in the tree now we have to go one level up
@@ -216,11 +216,11 @@ export class FileSystemResolver{
 
 
           addChildToParent('.list-group',li(true,argv[i],computeMargin(baseMargin,addedMargin)));
-          print("--"+currentDirectory+"\n");
+          // print("--"+currentDirectory+"\n");
         }else{
           // here i need to add nodes to the tree and create a complete tree
           addChildToParent('.list-group',li(false,argv[i]+currentFormat,computeMargin(baseMargin,addedMargin)));
-          print("---"+currentDirectory+argv[i]+currentFormat+"---\n");
+          // print("---"+currentDirectory+argv[i]+currentFormat+"---\n");
 
         }
 
@@ -228,10 +228,10 @@ export class FileSystemResolver{
       addChildToParent('.list-group',li(false,'...',computeMargin(baseMargin,0)));
 
     } else {
-      print("\nEMPTY FILE STRUCTURE GIVEN TO FSB\n");
+      // print("\nEMPTY FILE STRUCTURE GIVEN TO FSB\n");
       // here i will add a notification to say that an empty structure is given
-      // clearList('.list-group');
-      // addChildToParent('.list-group',li(false,'...',computeMargin(baseMargin,0)));
+      clearList('.list-group');
+      addChildToParent('.list-group',li(false,'...',computeMargin(baseMargin,0)));
     }
   }
 
