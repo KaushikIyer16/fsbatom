@@ -1,7 +1,9 @@
 'use babel';
 
-import {print}  from './FileSystemResolver';
-
+import {print}                  from './FileSystemResolver';
+import {File,Directory}         from 'atom';
+import mkdirp                   from 'mkdirp';
+import touch                    from 'touch';
 export function directorySpan(directoryName){
   let span = document.createElement('span');
   span.classList = 'icon icon-file-directory';
@@ -44,4 +46,31 @@ export function addChildToParent(parentDom ,childElement){
 
 export function computeMargin(baseMargin, addedMargin){
   return baseMargin+addedMargin+'px)';
+}
+
+export function createDirectory(dirPath){
+  // let directory = new Directory(filePath);
+  // if (!directory.existsSync()) {
+  //   directory.create();
+  // }else{
+  //   print("this directory already exists");
+  // }
+  try {
+      mkdirp.sync(dirPath);
+  } catch (err) {
+    if (err.code !== 'ENOENT') {
+        print("directory already exists");
+        atom.notifications.addWarning(dirPath+" already exists");
+    }
+  }
+}
+
+export function createFile(filePath){
+  // let file = new File(dirPath);
+  // if (!file.existsSync()) {
+  //   file.create();
+  // } else {
+  //   print("this file already exists");
+  // }
+  touch.sync(filePath);
 }

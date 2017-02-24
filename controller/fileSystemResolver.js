@@ -3,10 +3,16 @@
 import {fileMap}                    from '../controller/FileMap';
 import {fileSpan,directorySpan,li,
         clearList,addChildToParent,
-        computeMargin}              from './DomElements';
+        computeMargin,createFile,
+        createDirectory}              from './DomElements';
+
 
 export function print(printString) {
   console.log(printString);
+}
+
+export function resolveDirectory(filePath){
+  return filePath.substring(0,filePath.lastIndexOf('/')+1);
 }
 
 export class FileSystemResolver{
@@ -106,14 +112,16 @@ export class FileSystemResolver{
     let match = reg.exec(argument),returnedFormat = '';
 
     while(match !== null){
-      if (fileMap[match] !== undefined) {
-        returnedFormat += fileMap[match[0]];
-        match = reg.exec(argument);
-      }
+      returnedFormat +=this.getExtensionFromArgument(match[0]);
+      match = reg.exec(argument);
 
     }
 
     return returnedFormat;
+  }
+
+  getRoothPathFromModal(){
+    return document.querySelector('.root-input-block').getModel().getText();
   }
 
   RollUpDirectory(currentDirectory){
@@ -125,10 +133,12 @@ export class FileSystemResolver{
   /*This is the function that will be called to initiate the parsing of the input string to
   the directory structure*/
   main(){
-    let argv = this.parseString.split(' ');
-
+    let argv = this.parseString.trim().split(' ');
+    let directoryList = new Array();
+    let fileList = new Array();
     let currentDirectory = "",
-        currentFormat    = "";
+        currentFormat    = "",
+        rootPath         = this.getRoothPathFromModal();
 
     if (argv.length > 0 && argv[0] !== '') {
 
@@ -143,7 +153,7 @@ export class FileSystemResolver{
             currentFormat += this.getMultipleExtensionFromArgument(argv[i]);
           }
           else{
-            currentFormat += this.getExtensionFromArgument(argv[i]);
+            currentFormat = this.getExtensionFromArgument(argv[i]);
           }
 
         }else if(this.isDrillDown(argv[i])){
@@ -156,16 +166,37 @@ export class FileSystemResolver{
           currentDirectory = this.RollUpDirectory(currentDirectory);
           continue;
         }else if(currentFormat === "" && !this.containsFormat(argv[i]) ){
-          currentDirectory += argv[i]+"/";
-          print("--"+currentDirectory+"\n");
+          if (i>0 && (this.isDrillDown(argv[i-1]) || this.isRollUp(argv[i-1]) || this.isDirectory(argv[i-1])) ) {
+            currentDirectory += argv[i]+"/";
+          } else {
+            currentDirectory = this.RollUpDirectory(currentDirectory);
+            currentDirectory += argv[i]+"/";
+          }
+
+          // print("--"+rootPath+currentDirectory+"\n");
+          // new Directory("/Users/kaushiknsiyer/DD1").create();
+          directoryList.push(rootPath+currentDirectory);
+
         }else{
           // here i need to add nodes to the tree and create a complete tree
-          print("---"+currentDirectory+argv[i]+currentFormat+"---\n");
+          // print("---"+rootPath+currentDirectory+argv[i]+currentFormat+"---\n");
+          try {
+            // createFile(rootPath+currentDirectory+argv[i]+currentFormat);
+            fileList.push(rootPath+currentDirectory+argv[i]+currentFormat);
+          } catch (e) {
+            print("error creating the file");
+          }
 
         }
 
       }
-      atom.notifications.addSuccess("\nFolder Successfully Created\n");
+      atom.notifications.addSuccess("\nFolders/Files Successfully Created\n");
+      for (let i = 0; i < directoryList.length; i++) {
+        createDirectory(directoryList[i]);
+      }
+      for (let i = 0; i < fileList.length; i++) {
+        createFile(fileList[i]);
+      }
     } else {
       // print("\nEMPTY FILE STRUCTURE GIVEN TO FSB\n");
       // here i will add a notification to say that an empty structure is given
@@ -196,7 +227,7 @@ export class FileSystemResolver{
             currentFormat += this.getMultipleExtensionFromArgument(argv[i]);
           }
           else{
-            currentFormat += this.getExtensionFromArgument(argv[i]);
+            currentFormat = this.getExtensionFromArgument(argv[i]);
           }
 
         }else if(this.isDrillDown(argv[i])){

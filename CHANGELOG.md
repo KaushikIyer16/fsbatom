@@ -12,3 +12,9 @@
  - onChangeListener was fixed and the basic view of the package is complete
  - fixed the menu names and the shortcut for creating files
  - fixed the problem of rolling up
+
+## 0.6.4 - Second Release
+* Every feature added
+ - keymap support for linux and windows
+
+* Every bug fixed
