@@ -1,4 +1,4 @@
-## 0.6.3 - First Release
+## 0.6.0 - First Major Release
 * Every feature added
  - modal has been added to take the user input
  - documentElement listener was added
@@ -13,8 +13,10 @@
  - fixed the menu names and the shortcut for creating files
  - fixed the problem of rolling up
 
-## 0.6.4 - Second Release
+## 0.7.0 - Second Major Release
 * Every feature added
  - keymap support for linux and windows
-
+ - started generating file structures.
 * Every bug fixed
+ - fails when no file is currently open.
+ - fails when variables are null.

@@ -34,14 +34,19 @@ export function li(isDirectory,name,computedMargin){
 
 export function clearList(dom){
   let domElement = document.querySelector(dom);
-  while (domElement.firstChild) {
-    domElement.removeChild(domElement.firstChild);
+  if (domElement != null) {
+    while (domElement.firstChild) {
+      domElement.removeChild(domElement.firstChild);
+    }
   }
 }
 
 export function addChildToParent(parentDom ,childElement){
   let parentDomElement = document.querySelector(parentDom);
-  parentDomElement.appendChild(childElement);
+  if (parentDomElement != null) {
+    parentDomElement.appendChild(childElement);
+  }
+
 }
 
 export function computeMargin(baseMargin, addedMargin){
