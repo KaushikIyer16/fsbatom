@@ -190,13 +190,19 @@ export class FileSystemResolver{
         }
 
       }
-      atom.notifications.addSuccess("\nFolders/Files Successfully Created\n");
+      let allValidFiles = false;
       for (let i = 0; i < directoryList.length; i++) {
-        createDirectory(directoryList[i]);
+        allValidFiles = allValidFiles || createDirectory(directoryList[i]);
       }
       for (let i = 0; i < fileList.length; i++) {
-        createFile(fileList[i]);
+        allValidFiles = allValidFiles || createFile(fileList[i]);
       }
+      if (allValidFiles) {
+        atom.notifications.addSuccess("\nFolders/Files Successfully Created\n");
+      } else {
+        atom.notifications.addError("\nSome/All Files/Directories are invalid\n");
+      }
+
     } else {
       // print("\nEMPTY FILE STRUCTURE GIVEN TO FSB\n");
       // here i will add a notification to say that an empty structure is given

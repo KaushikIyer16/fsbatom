@@ -16,7 +16,7 @@
     ]
   },
   "repository": "https://github.com/KaushikIyer16/fsbatom",
-  "license": "MIT",
+  "license": "https://github.com/KaushikIyer16/fsbatom/blob/master/LICENSE.md",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
   },

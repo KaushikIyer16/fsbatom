@@ -1,6 +1,6 @@
 'use babel';
 
-import {print}                  from './FileSystemResolver';
+import {print,resolveDirectory} from './FileSystemResolver';
 import {File,Directory}         from 'atom';
 import mkdirp                   from 'mkdirp';
 import touch                    from 'touch';
@@ -54,14 +54,20 @@ export function computeMargin(baseMargin, addedMargin){
 }
 
 export function createDirectory(dirPath){
-  // let directory = new Directory(filePath);
+  let directory = new Directory(filePath);
   // if (!directory.existsSync()) {
   //   directory.create();
   // }else{
   //   print("this directory already exists");
   // }
   try {
+    if (!directory.existsSync()) {
       mkdirp.sync(dirPath);
+      return true;
+    }else{
+      atom.notifications.addError(dirPath+" already exists");
+      return false;
+    }
   } catch (err) {
     if (err.code !== 'ENOENT') {
         print("directory already exists");
@@ -77,5 +83,27 @@ export function createFile(filePath){
   // } else {
   //   print("this file already exists");
   // }
-  touch.sync(filePath);
+  let file = new File(filePath);
+  let directoryLoc = resolveDirectory(filePath);
+  let directory = new Directory(directoryLoc);
+  try {
+    if (!directory.existsSync()) {
+      atom.notifications.addError(directoryLoc+" does not exists");
+      return false;
+    }else{
+      if (!file.existsSync()) {
+        touch.sync(filePath);
+        return true;
+      }else{
+        atom.notifications.addError(filePath+" already exists");
+        return false;
+      }
+    }
+  } catch (err) {
+    if (err.code !== 'ENOENT') {
+        print("directory already exists");
+        atom.notifications.addWarning(directoryLoc+" already exists");
+    }
+  }
+
 }
