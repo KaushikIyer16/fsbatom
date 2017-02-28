@@ -87,9 +87,18 @@ export function createFile(filePath){
   let directoryLoc = resolveDirectory(filePath);
   let directory = new Directory(directoryLoc);
   try {
+    if (!directory.existsSync()) {
+      atom.notifications.addError(directoryLoc+" does not exists");
 
+    }else{
+      if (!file.existsSync()) {
         touch.sync(filePath);
-        
+
+      }else{
+        atom.notifications.addError(filePath+" already exists");
+
+      }
+    }
   } catch (err) {
     if (err.code !== 'ENOENT') {
         print("directory already exists");

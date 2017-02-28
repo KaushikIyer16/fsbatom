@@ -31,4 +31,8 @@ The command used will be:
 2. Use an option with a "-" operator before the file names to create multiple files with a same extension. Eg. To create Javascript files one, two and three use the command '-js one two three'.
 3. Multiple options can be used to create files with multiple extensions like '.scala.js'.
 4. Hit enter/return to create the files.
-5. A list of the options is given below: 
+5. A list of the options is given below:
+
+# Using the -d option:
+
+1. 
