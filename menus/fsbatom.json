@@ -9,7 +9,7 @@
       "label": "Packages",
       "submenu": [
         {
-          "label": "File System Builder",
+          "label": "Rapido-File",
           "submenu": [
             {
               "label": "Create Files/Folders",

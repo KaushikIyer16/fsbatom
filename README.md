@@ -35,4 +35,12 @@ The command used will be:
 
 # Using the -d option:
 
-1. 
+the -d option stands for delimiting. consider the scenario where you type the command "-p phpfile1 dir1". even though
+you want dir1 to be read as a directory, the package will understand it as another php file. So it is important for the
+package to understand that the user doesn't want the extension to continue from this point on. So we have the -d option.
+it is to tell Rapido-File that from this point on the extension is reset. so the command "-p phpfile1 -d dir1" will be
+understood as though dir1 is a directory. The command "-p phpfile1 -d dir1 phpfile2" will be understood as if phpfile2
+is also a directory, hence it is important to understand the application of the "-d" option, so for telling Rapido-File
+that phpfile2 is a php file the following command has to be executed, "-p phpfile1 -d dir1 -p phpfile2". It is also
+possible to continue to create directories after using the "-d" option, such as: "-p phpfile1 -d dir1 / some.txt ^ dir2"
+where dir1 and dir2 will be interpreted as directories.
