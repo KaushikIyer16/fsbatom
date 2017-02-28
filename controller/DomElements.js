@@ -54,7 +54,7 @@ export function computeMargin(baseMargin, addedMargin){
 }
 
 export function createDirectory(dirPath){
-  let directory = new Directory(filePath);
+  let directory = new Directory(dirPath);
   // if (!directory.existsSync()) {
   //   directory.create();
   // }else{
@@ -63,10 +63,10 @@ export function createDirectory(dirPath){
   try {
     if (!directory.existsSync()) {
       mkdirp.sync(dirPath);
-      return true;
+
     }else{
       atom.notifications.addError(dirPath+" already exists");
-      return false;
+
     }
   } catch (err) {
     if (err.code !== 'ENOENT') {
@@ -87,18 +87,9 @@ export function createFile(filePath){
   let directoryLoc = resolveDirectory(filePath);
   let directory = new Directory(directoryLoc);
   try {
-    if (!directory.existsSync()) {
-      atom.notifications.addError(directoryLoc+" does not exists");
-      return false;
-    }else{
-      if (!file.existsSync()) {
+
         touch.sync(filePath);
-        return true;
-      }else{
-        atom.notifications.addError(filePath+" already exists");
-        return false;
-      }
-    }
+        
   } catch (err) {
     if (err.code !== 'ENOENT') {
         print("directory already exists");

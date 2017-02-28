@@ -190,12 +190,12 @@ export class FileSystemResolver{
         }
 
       }
-      let allValidFiles = false;
+      let allValidFiles = true; // change this to false when you finish the package
       for (let i = 0; i < directoryList.length; i++) {
-        allValidFiles = allValidFiles || createDirectory(directoryList[i]);
+        createDirectory(directoryList[i]);
       }
       for (let i = 0; i < fileList.length; i++) {
-        allValidFiles = allValidFiles || createFile(fileList[i]);
+        createFile(fileList[i]);
       }
       if (allValidFiles) {
         atom.notifications.addSuccess("\nFolders/Files Successfully Created\n");

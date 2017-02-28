@@ -12,7 +12,7 @@
           "label": "File System Builder",
           "submenu": [
             {
-              "label": "Create Files",
+              "label": "Create Files/Folders",
               "command": "fsbatom:toggleModal"
             }
           ]
