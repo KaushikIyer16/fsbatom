@@ -1,7 +1,7 @@
 {
   "name": "fsbatom",
   "main": "./lib/fsbatom",
-  "version": "0.7.3",
+  "version": "0.7.4",
   "description": "A simple but elegant way to create a huge number of files or directories or any combination of both without much hassle",
   "keywords": [
     "file",
