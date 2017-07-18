@@ -188,7 +188,7 @@ export class FileSystemResolver{
           try {
             // createFile(rootPath+currentDirectory+argv[i]+currentFormat);
             if (this.containsTilde(argv[i])) {
-              openFileList.push(rootPath+currentDirectory+argv[i].substring(1)+currentFormat);
+              openFileList.push(currentDirectory+argv[i]+currentFormat);
               fileList.push(rootPath+currentDirectory+argv[i].substring(1)+currentFormat);
             }
             else{
@@ -212,7 +212,7 @@ export class FileSystemResolver{
       }
 
       for (var i = 0; i < openFileList.length; i++) {
-        atom.workspace.open(openFileList[i]);
+        atom.workspace.open(openFileList[i].substring(1));
       }
       if (allValidFiles) {
         atom.notifications.addSuccess("\nFolders/Files Successfully Created\n");
