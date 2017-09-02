@@ -89,14 +89,14 @@ export function createFile(filePath){
   try {
     if (!directory.existsSync()) {
       atom.notifications.addError(directoryLoc+" does not exists");
-
+      return null;
     }else{
       if (!file.existsSync()) {
         touch.sync(filePath);
-
+        return file;
       }else{
         atom.notifications.addError(filePath+" already exists");
-
+        return null;
       }
     }
   } catch (err) {
@@ -104,6 +104,7 @@ export function createFile(filePath){
         print("directory already exists");
         atom.notifications.addWarning(directoryLoc+" already exists");
     }
+    return null;
   }
 
 }

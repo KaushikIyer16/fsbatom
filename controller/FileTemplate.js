@@ -3,30 +3,30 @@
 export let FileTemplate =
 
           {
-              ".php":`<?php
+              "php":`<?php
                         echo "hello world";
                       ?>`,
 
-              ".java":`
+              "java":`
                         import java.util.*;
                         import java.io.*;
                         public class ClassName{
 
                         }`,
 
-              ".html":`
-                        <!DOCTYPE html>
-                        <html>
-                          <head>
-                            <meta charset="utf-8">
-                            <title></title>
-                          </head>
-                          <body>
+              "html":
+`<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
 
-                          </body>
-                        </html>`,
+  </body>
+</html>`,
 
-              ".js":`
+              "js":`
 
                       (function(){
 
@@ -35,11 +35,13 @@ export let FileTemplate =
                       })();`,
 
 
-              ".py":`
+              "py":`
                       print "hello world"
 
-                    `
-
+                    `,
+              "*":`
+                    /* DEFAULT TEXT FOR THIS FORMAT HAS NOT BEEN SET YET*/
+                  `
 
 
 

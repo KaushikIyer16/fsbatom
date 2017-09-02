@@ -4,7 +4,8 @@ import {fileMap}                    from '../controller/FileMap';
 import {fileSpan,directorySpan,li,
         clearList,addChildToParent,
         computeMargin,createFile,
-        createDirectory}              from './DomElements';
+        createDirectory}            from './DomElements';
+import {FileTemplateInjector}       from './FileTemplateResolver';
 
 
 export function print(printString) {
@@ -12,6 +13,9 @@ export function print(printString) {
 }
 
 export function resolveDirectory(filePath){
+  if (filePath.lastIndexOf('/') === -1) {
+    return filePath.substring(0,filePath.lastIndexOf('\\')+1)
+  }
   return filePath.substring(0,filePath.lastIndexOf('/')+1);
 }
 
@@ -188,7 +192,7 @@ export class FileSystemResolver{
           try {
             // createFile(rootPath+currentDirectory+argv[i]+currentFormat);
             if (this.containsTilde(argv[i])) {
-              openFileList.push(currentDirectory+argv[i]+currentFormat);
+              openFileList.push(rootPath+currentDirectory+argv[i].substring(1)+currentFormat);
               fileList.push(rootPath+currentDirectory+argv[i].substring(1)+currentFormat);
             }
             else{
@@ -206,13 +210,17 @@ export class FileSystemResolver{
 
       for (let i = 0; i < directoryList.length; i++) {
         createDirectory(directoryList[i]);
+        // print(directoryList)
       }
       for (let i = 0; i < fileList.length; i++) {
-        createFile(fileList[i]);
+        let currFileObj = createFile(fileList[i]);
+        if(currFileObj != null ){
+          FileTemplateInjector(currFileObj);
+        }
       }
 
       for (var i = 0; i < openFileList.length; i++) {
-        atom.workspace.open(openFileList[i].substring(1));
+        atom.workspace.open(openFileList[i]);
       }
       if (allValidFiles) {
         atom.notifications.addSuccess("\nFolders/Files Successfully Created\n");
